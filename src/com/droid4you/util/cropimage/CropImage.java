@@ -46,6 +46,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StatFs;
+import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -117,6 +118,8 @@ public class CropImage extends MonitoredActivity {
 			mImagePath = extras.getString("image-path");
 
 			mSaveUri = getImageUri(mImagePath);
+			if( extras.getString( MediaStore.EXTRA_OUTPUT ) != null ) mSaveUri = Uri.parse( extras.getString( MediaStore.EXTRA_OUTPUT ) );
+			
 			mBitmap = getBitmap(mImagePath);
 
 			mAspectX = extras.getInt("aspectX");
