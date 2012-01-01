@@ -125,6 +125,10 @@ public class CropImage extends MonitoredActivity {
 			mOutputY = extras.getInt("outputY");
 			mScale = extras.getBoolean("scale", true);
 			mScaleUp = extras.getBoolean("scaleUpIfNeeded", true);
+			
+			if( extras.getString( "outputFormat" ) != null ) {
+				mOutputFormat = Bitmap.CompressFormat.valueOf( extras.getString( "outputFormat" ) );
+			}
 		}
 
 
