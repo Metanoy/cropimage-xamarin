@@ -404,7 +404,7 @@ public class CropImage extends MonitoredActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		mBitmap.recycle();
+		if( mBitmap != null && mBitmap.isRecycled() ) mBitmap.recycle();
 	}
 
 
