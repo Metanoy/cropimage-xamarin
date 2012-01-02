@@ -118,9 +118,9 @@ public class CropImage extends MonitoredActivity {
 			mImagePath = extras.getString("image-path");
 
 			mSaveUri = getImageUri(mImagePath);
-			if( extras.getString( MediaStore.EXTRA_OUTPUT ) != null ) mSaveUri = Uri.parse( extras.getString( MediaStore.EXTRA_OUTPUT ) );
+			if( extras.getString( MediaStore.EXTRA_OUTPUT ) != null ) mSaveUri = getImageUri( extras.getString( MediaStore.EXTRA_OUTPUT ) );
 			
-			mBitmap = getBitmap(mImagePath);
+			mBitmap = getBitmap(mImagePath);			
 
 			mAspectX = extras.getInt("aspectX");
 			mAspectY = extras.getInt("aspectY");
