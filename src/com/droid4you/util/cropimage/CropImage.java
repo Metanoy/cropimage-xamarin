@@ -192,7 +192,8 @@ public class CropImage extends MonitoredActivity {
 		Uri uri = getImageUri(path);
 		InputStream in = null;
 		try {
-			final int IMAGE_MAX_SIZE = 2048;
+			//final int IMAGE_MAX_SIZE = 2048;
+			final int IMAGE_MAX_SIZE = 1024;
 			in = mContentResolver.openInputStream(uri);
 			
 			//Decode image size
