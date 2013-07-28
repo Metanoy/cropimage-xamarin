@@ -163,7 +163,7 @@ namespace CropImage
             }
 
             canvas.Save();
-            Path path = new Path();
+            
 
             if (!Focused)
             {
@@ -175,11 +175,14 @@ namespace CropImage
                 Rect viewDrawingRect = new Rect();
                 context.GetDrawingRect(viewDrawingRect);
 
+                outlinePaint.Color = Color.White;// new Color(0XFF, 0xFF, 0x8A, 0x00);
+                focusPaint.Color = new Color(50, 50, 50, 125);
+
+                Path path = new Path();
                 path.AddRect(new RectF(DrawRect), Path.Direction.Cw);
-                outlinePaint.Color = new Color(0XFF, 0xFF, 0x8A, 0x00);
 
                 canvas.ClipPath(path, Region.Op.Difference);
-                canvas.DrawRect(viewDrawingRect, Focused ? focusPaint : noFocusPaint);
+                canvas.DrawRect(viewDrawingRect, focusPaint);
 
                 canvas.Restore();
                 canvas.DrawPath(path, outlinePaint);

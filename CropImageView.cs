@@ -40,6 +40,7 @@ namespace CropImage
 
         public CropImageView(Context context, IAttributeSet attrs) : base(context, attrs)
         {
+            SetLayerType(Android.Views.LayerType.Software, null);
             this.context = context;
         }
 
