@@ -64,8 +64,6 @@ namespace CropImage
             get;
         }
 
-        public bool WaitingToPick { get; set; }
-
         /// <summary>
         /// Whether the "save" button is already clicked.
         /// </summary>
@@ -187,6 +185,7 @@ namespace CropImage
             Crop.Setup(imageView.ImageMatrix, imageRect, cropRect, aspectX != 0 && aspectY != 0);
 
             imageView.ClearHighlightViews();
+            Crop.Focused = true;
             imageView.AddHighlightView(Crop);
         }
 

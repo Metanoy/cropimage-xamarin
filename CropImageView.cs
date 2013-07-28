@@ -31,8 +31,8 @@ namespace CropImage
         private HighlightView mMotionHighlightView = null;
         private float mLastX;
         private float mLastY;
-        private global::CropImage.HighlightView.HitPosition mMotionEdge;
-        private Context mContext;
+        private global::CropImage.HighlightView.HitPosition motionEdge;
+        private Context context;
 
         #endregion
 
@@ -40,7 +40,7 @@ namespace CropImage
 
         public CropImageView(Context context, IAttributeSet attrs) : base(context, attrs)
         {
-            this.mContext = context;
+            this.context = context;
         }
 
         #endregion
@@ -132,39 +132,9 @@ namespace CropImage
             }
         }
 
-        // According to the event's position, change the focus to the first
-        // hitting cropping rectangle.
-        private void recomputeFocus(MotionEvent ev)
-        {
-            for (int i = 0; i < hightlightViews.Count; i++)
-            {
-                HighlightView hv = hightlightViews[i];
-                hv.Focused = false;
-                hv.Invalidate();
-            }
-
-            for (int i = 0; i < hightlightViews.Count; i++)
-            {
-                HighlightView hv = hightlightViews[i];
-
-                var edge = hv.GetHit(ev.GetX(), ev.GetY());
-                if (edge != global::CropImage.HighlightView.HitPosition.None)
-                {
-                    if (!hv.Focused)
-                    {
-                        hv.Focused = true;
-                        hv.Invalidate();
-                    }
-                    break;
-                }
-            }
-
-            Invalidate();
-        }
-
         public override bool OnTouchEvent(MotionEvent ev)
         {
-            CropImage cropImage = (CropImage)mContext;
+            CropImage cropImage = (CropImage)context;
             if (cropImage.Saving)
             {
                 return false;
@@ -173,58 +143,28 @@ namespace CropImage
             switch (ev.Action)
             {
                 case MotionEventActions.Down:
-                    if (cropImage.WaitingToPick)
+                  
+                    for (int i = 0; i < hightlightViews.Count; i++)
                     {
-                        recomputeFocus(ev);
-                    }
-                    else
-                    {
-                        for (int i = 0; i < hightlightViews.Count; i++)
+                        HighlightView hv = hightlightViews[i];
+                        var edge = hv.GetHit(ev.GetX(), ev.GetY());
+                        if (edge != global::CropImage.HighlightView.HitPosition.None)
                         {
-                            HighlightView hv = hightlightViews[i];
-                            var edge = hv.GetHit(ev.GetX(), ev.GetY());
-                            if (edge != global::CropImage.HighlightView.HitPosition.None)
-                            {
-                                mMotionEdge = edge;
-                                mMotionHighlightView = hv;
-                                mLastX = ev.GetX();
-                                mLastY = ev.GetY();
-                                mMotionHighlightView.Mode = 
-                                    (edge == global::CropImage.HighlightView.HitPosition.Move)
-                                    ? HighlightView.ModifyMode.Move
-                                    : HighlightView.ModifyMode.Grow;
-                                break;
-                            }
+                            motionEdge = edge;
+                            mMotionHighlightView = hv;
+                            mLastX = ev.GetX();
+                            mLastY = ev.GetY();
+                            mMotionHighlightView.Mode = 
+                                (edge == global::CropImage.HighlightView.HitPosition.Move)
+                                ? HighlightView.ModifyMode.Move
+                                : HighlightView.ModifyMode.Grow;
+                            break;
                         }
                     }
                     break;
 
                 case MotionEventActions.Up:
-                    if (cropImage.WaitingToPick)
-                    {
-                        for (int i = 0; i < hightlightViews.Count; i++)
-                        {
-                            HighlightView hv = hightlightViews[i];
-
-                            if (hv.Focused)
-                            {
-                                cropImage.Crop = hv;
-                                for (int j = 0; j < hightlightViews.Count; j++)
-                                {
-                                    if (j == i)
-                                    {
-                                        continue;
-                                    }
-                                    hightlightViews[j].Hidden = true;
-                                }
-
-                                centerBasedOnHighlightView(hv);
-                                ((CropImage)mContext).WaitingToPick = false;
-                                return true;
-                            }
-                        }
-                    }
-                    else if (mMotionHighlightView != null)
+                    if (mMotionHighlightView != null)
                     {
                         centerBasedOnHighlightView(mMotionHighlightView);
                         mMotionHighlightView.Mode = HighlightView.ModifyMode.None;
@@ -234,13 +174,9 @@ namespace CropImage
                     break;
 
                 case MotionEventActions.Move:
-                    if (cropImage.WaitingToPick)
+                  if (mMotionHighlightView != null)
                     {
-                        recomputeFocus(ev);
-                    }
-                    else if (mMotionHighlightView != null)
-                    {
-                        mMotionHighlightView.HandleMotion(mMotionEdge,
+                        mMotionHighlightView.HandleMotion(motionEdge,
                                                           ev.GetX() - mLastX,
                                                           ev.GetY() - mLastY);
                         mLastX = ev.GetX();

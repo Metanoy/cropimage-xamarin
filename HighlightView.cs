@@ -44,7 +44,6 @@ namespace CropImage
 
         private Drawable resizeDrawableWidth;
         private Drawable resizeDrawableHeight;
-        private Drawable resizeDrawableDiagonal;
 
         private Paint focusPaint = new Paint();
         private Paint noFocusPaint = new Paint();
@@ -305,7 +304,6 @@ namespace CropImage
 
             resizeDrawableWidth = resources.GetDrawable(Resource.Drawable.camera_crop_width);
             resizeDrawableHeight = resources.GetDrawable(Resource.Drawable.camera_crop_height);
-            resizeDrawableDiagonal = resources.GetDrawable(Resource.Drawable.indicator_autocrop);
         }
 
         // Grows the cropping rectange by (dx, dy) in image space.
