@@ -9,3 +9,5 @@ you have to build your own.
 
 This library is a simplified port of the project found at
 https://github.com/MMP-forTour/cropimage.
+
+![](https://raw.github.com/markuspalme/cropimage-xamarin/master/Screenshot.png)
