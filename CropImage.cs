@@ -127,6 +127,7 @@ namespace CropImage
                 bitmap = Util.rotateImage(bitmap, -90);
                 RotateBitmap rotateBitmap = new RotateBitmap(bitmap);
                 imageView.SetImageRotateBitmapResetBase(rotateBitmap, true);
+                addHighlightView();
             };
 
             FindViewById<Button>(Resource.Id.rotateRight).Click += (o, e) =>
@@ -134,6 +135,7 @@ namespace CropImage
                 bitmap = Util.rotateImage(bitmap, 90);
                 RotateBitmap rotateBitmap = new RotateBitmap(bitmap);
                 imageView.SetImageRotateBitmapResetBase(rotateBitmap, true);
+                addHighlightView();
             };
 
             imageView.SetImageBitmapResetBase(bitmap, true);
