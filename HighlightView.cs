@@ -52,12 +52,12 @@ namespace CropImage
         [Flags]
         public enum HitPosition
         {
-            None,
-            GrowLeftEdge,
-            GrowRightEdge,
-            GrowTopEdge,
-            GrowBottomEdge,
-            Move
+            None = 0x0,
+            GrowLeftEdge = 0x1,
+            GrowRightEdge = 0x2,
+            GrowTopEdge = 0x4,
+            GrowBottomEdge = 0x8,
+            Move = 0x10
         }
 
         #region Constructor
