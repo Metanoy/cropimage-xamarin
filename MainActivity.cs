@@ -45,7 +45,8 @@ namespace CropImage
 
         private Java.IO.File createDirectoryForPictures()
         {
-            var dir = new Java.IO.File(global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures), "Boruto");
+            //var dir = new Java.IO.File(global::Android.OS.Environment.GetExternalStoragePublicDirectory(global::Android.OS.Environment.DirectoryPictures), "Boruto");
+            var dir = new Java.IO.File(GetExternalFilesDir(null), ".pics"); //private dir in app folder
             if (!dir.Exists())
             {
                 dir.Mkdirs();
