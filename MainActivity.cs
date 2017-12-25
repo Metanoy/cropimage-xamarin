@@ -58,9 +58,9 @@ namespace CropImage
         {
 
             Intent intent = new Intent(MediaStore.ActionImageCapture);
-
-            mImageCaptureUri = Android.Net.Uri.FromFile(new Java.IO.File(createDirectoryForPictures(), string.Format("myPhoto_{0}.jpg", System.Guid.NewGuid())));
-
+            
+            var file = new Java.IO.File(createDirectoryForPictures(), string.Format("myPhoto_{0}.jpg", System.Guid.NewGuid()));
+            mImageCaptureUri = Android.Support.V4.Content.FileProvider.GetUriForFile(this, PackageName + ".fileprovider", file);
             intent.PutExtra(MediaStore.ExtraOutput, mImageCaptureUri);
 
             try
