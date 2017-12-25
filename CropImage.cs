@@ -193,7 +193,7 @@ namespace CropImage
 
         private Android.Net.Uri getImageUri(String path)
         {
-            return Android.Net.Uri.FromFile(new Java.IO.File(path));
+            return Android.Net.Uri.Parse(path);
         }
 
         private Bitmap getBitmap(String path)
