@@ -86,7 +86,7 @@ namespace CropImage
             {
                 case PICK_FROM_CAMERA:
                     Intent intent = new Intent(this, typeof(CropImage));
-                    intent.PutExtra("image-path", mImageCaptureUri.Path);
+                    intent.PutExtra("image-path", mImageCaptureUri.ToString());
                     intent.PutExtra("scale", true);
                     StartActivity(intent);
                     break;
